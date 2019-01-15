@@ -1,20 +1,19 @@
-
 stages:
   - compile
   - test
   - deploy
 
-job 1:
+compile:
   stage: compile
   script:
     - mvn compile
 
-job 2:
+test:
   stage: test
   script:
     - mvn test
 
-job 3:
+deploy:
   stage: deploy
   script:
     - mvn package
