@@ -20,3 +20,4 @@ job 3:
     - mvn package
     - export PORT=5000
     - sh target/bin/simplewebapp
+    - return
