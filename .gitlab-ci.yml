@@ -5,12 +5,15 @@ stages:
   - deploy
 
 compile:
-  - mvn compile
+  script:
+    - mvn compile
 
 test:
-  - mvn test
+  script:
+    - mvn test
 
 deploy:
-  - mvn package
-  - export PORT=5000
-  - sh target/bin/simplewebapp
+  script:
+    - mvn package
+    - export PORT=5000
+    - sh target/bin/simplewebapp
