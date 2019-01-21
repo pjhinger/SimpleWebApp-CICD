@@ -19,3 +19,6 @@ deploy:
     - mvn package
     - export PORT=5000
     - sh target/bin/simplewebapp > /dev/null 2>&1 &
+  environment:
+    name: SimpleWebApp
+    url: https://146.169.46.68:5000
