@@ -21,6 +21,8 @@ public class IndexPage implements Page {
                         "<p>Enter your query in the box below: " +
                         "<form>" +
                         "<input type=\"text\" name=\"q\" />" +
+                        "<br><br><input type=\"radio\" name=\"type\" value=\"html\"> HTML " +
+                        "<input type=\"radio\" name=\"type\" value=\"markdown\"> Markdown <br>" +
                         "<br><br><input type=\"submit\">" +
                         "</form>" +
                         "</p>");
