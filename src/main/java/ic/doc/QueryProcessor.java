@@ -33,8 +33,8 @@ public class QueryProcessor {
         }
 
         if (query.toLowerCase().contains("lovelace")) {
-            results.append("Augusta Ada King, Countess of Lovelace (née Byron; 10 December 1815 -\n" +
-                           "27 November 1852) was an English mathematician and writer, chiefly\n" +
+            results.append("Augusta Ada King, Countess of Lovelace (10 December 1815 - 27 November\n" +
+                           "November 1852) was an English mathematician and writer, chiefly\n" +
                            "known for her work on Charles Babbage's proposed mechanical\n" +
                            "general-purpose computer, the Analytical Engine. She was the first to\n" +
                            "recognise that the machine had applications beyond pure calculation,\n" +

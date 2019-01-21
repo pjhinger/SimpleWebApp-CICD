@@ -29,15 +29,14 @@ public class WebServer {
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
             String query = req.getParameter("q");
             String type = req.getParameter("type");
-            if (query == null) {
+            if (query == null || type == null) {
                 new IndexPage().writeTo(resp);
             } else {
                 if(type.equals("html")) {
                     new HTMLResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
                 } else {
-                    new MarkdownResultsPage(query,  new QueryProcessor().process(query)).writeTo(resp);
+                    new MarkdownResultsPage(query, new QueryProcessor().process(query)).writeTo(resp);
                 }
-
             }
         }
     }

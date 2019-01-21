@@ -32,6 +32,7 @@ public class HTMLResultPage implements Page {
             writer.println("<p>" + answer.replace("\n", "<br>") + "</p>");
         }
 
+        //writer.println("<p><a href=\"/\">Download Query Result</a></p>" + // ME: what to put for href
         writer.println("<p><a href=\"/\">Back to Search Page</a></p>");
 
         // Footer
