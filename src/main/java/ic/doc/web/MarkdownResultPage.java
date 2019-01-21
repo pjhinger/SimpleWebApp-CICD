@@ -14,18 +14,26 @@ public class MarkdownResultPage implements Page {
   }
 
   public void writeTo(HttpServletResponse resp) throws IOException {
-    resp.setContentType("text/plain"); // ME : THIS is the MIME Type? before said text/markdown?
-    PrintWriter writer = resp.getWriter();
+    resp.setContentType("text/markdown"); // ME : THIS is the MIME Type? before said text/markdown?
 
     // Content
     if (answer == null || answer.isEmpty()) {
       resp.setHeader("Content-Disposition", "attachment;filename=\"sorry.md\"");
+      PrintWriter writer = resp.getWriter();
       writer.println("#Sorry");
       writer.println("Sorry, we didn't understand " + query + ".");
     } else {
       resp.setHeader("Content-Disposition", "attachment;filename=\"" + query + ".md\"");
-      writer.println("#" + query);
-      writer.println(answer);
+
+      File tmp = File.createTempFile(query, ".tmp");
+      FileWriter fw = new FileWriter(tmp);
+      fw.write("#" + query + "\n");
+      fw.write(answer);
+      fw.close();
+
+      FileInputStream fileInputStream = new FileInputStream(tmp);
+      OutputStream servletOutputStream = resp.getOutputStream();
+      servletOutputStream.write(fileInputStream.readAllBytes());
     }
   }
 }

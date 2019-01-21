@@ -18,5 +18,7 @@ public class PDFResultPage implements Page {
     resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\""); // ME: OR JUST REMOVE THIS LINE COMPLETELY? HTMLResult doesn't use this
     // resp.setContentLength((int) outputFile.length());
     PrintWriter writer = resp.getWriter();
+    writer.println("#" + query);
+    writer.println(answer);
   }
 }
