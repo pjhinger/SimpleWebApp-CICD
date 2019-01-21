@@ -5,5 +5,5 @@ import java.io.IOException;
 
 public interface Page {
 
-    void writeTo(HttpServletResponse resp) throws IOException;
+  void writeTo(HttpServletResponse resp) throws IOException;
 }

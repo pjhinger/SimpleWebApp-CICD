@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 public class MarkdownResultPage implements Page {
+
   private final String query;
   private final String answer;
 

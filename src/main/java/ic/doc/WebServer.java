@@ -14,35 +14,37 @@ import java.io.IOException;
 
 public class WebServer {
 
-    public WebServer() throws Exception {
-        Server server = new Server(Integer.valueOf(System.getenv("PORT")));
+  public WebServer() throws Exception {
+    Server server = new Server(Integer.valueOf(System.getenv("PORT")));
 
-        ServletHandler handler = new ServletHandler();
-        handler.addServletWithMapping(new ServletHolder(new Website()), "/*");
-        server.setHandler(handler);
+    ServletHandler handler = new ServletHandler();
+    handler.addServletWithMapping(new ServletHolder(new Website()), "/*");
+    server.setHandler(handler);
 
-        server.start();
-    }
+    server.start();
+  }
 
-    static class Website extends HttpServlet {
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-            String query = req.getParameter("q");
-            String type = req.getParameter("type");
-            if (query == null || type == null) {
-                new IndexPage().writeTo(resp);
-            } else {
-                if(type.equals("html")) {
-                    new HTMLResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
-                } else {
-                    new MarkdownResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
-                }
-            }
+  static class Website extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+      String query = req.getParameter("q");
+      String type = req.getParameter("type");
+      if (query == null || type == null) {
+        new IndexPage().writeTo(resp);
+      } else {
+        if (type.equals("html")) {
+          new HTMLResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
+        } else if (type.equals("markdown")) {
+          new MarkdownResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
+        } else {
+          // NEW PDFRESULT PAGE
         }
+      }
     }
+  }
 
-    public static void main(String[] args) throws Exception {
-        new WebServer();
-    }
+  public static void main(String[] args) throws Exception {
+    new WebServer();
+  }
 }
 

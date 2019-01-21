@@ -6,32 +6,34 @@ import java.io.PrintWriter;
 
 public class IndexPage implements Page {
 
-    public void writeTo(HttpServletResponse resp) throws IOException {
-        resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
+  public void writeTo(HttpServletResponse resp) throws IOException {
+    resp.setContentType("text/html");
+    PrintWriter writer = resp.getWriter();
 
-        // Header
-        writer.println("<html>");
-        writer.println("<head><title>Welcome</title></head>");
-        writer.println("<body>");
+    // Header
+    writer.println("<html>");
+    writer.println("<head><title>Welcome</title></head>");
+    writer.println("<body>");
 
-        // Content
-        writer.println("<h1>Welcome!!</h1>" +
-                       "<p>Enter your query in the box below: " +
-                       "<form>" +
-                       "<input type=\"text\" name=\"q\" />" +
-                       "<br><br>" +
-                       "<input type=\"radio\" name=\"type\" value=\"html\"> HTML" +
-                       "<br>" +
-                       "<input type=\"radio\" name=\"type\" value=\"markdown\"> Markdown" +
-                       "<br><br>" +
-                       "<input type=\"submit\">" +
-                       "</form>" +
-                       "</p>");
+    // Content
+    writer.println("<h1>Welcome!!</h1>" +
+                   "<p>Enter your query in the box below: " +
+                   "<form>" +
+                   "<input type=\"text\" name=\"q\" />" +
+                   "<br><br>" +
+                   "<input type=\"radio\" name=\"type\" value=\"html\"> HTML" +
+                   "<br>" +
+                   "<input type=\"radio\" name=\"type\" value=\"markdown\"> Download Markdown File" +
+                   "<br>" +
+                   "<input type=\"radio\" name=\"type\" value=\"pdf\"> PDF" +
+                   "<br><br>" +
+                   "<input type=\"submit\">" +
+                   "</form>" +
+                   "</p>");
 
-        // Footer
-        writer.println("</body>");
-        writer.println("</html>");
-    }
-    
+    // Footer
+    writer.println("</body>");
+    writer.println("</html>");
+  }
+
 }
