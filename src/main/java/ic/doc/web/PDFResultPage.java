@@ -36,24 +36,23 @@ public class PDFResultPage implements Page {
       OutputStream servletOutputStream = resp.getOutputStream();
       servletOutputStream.write(fileInputStream.readAllBytes());
 
-      ProcessBuilder processBuilder = new ProcessBuilder();
-
       // String[] commands = {"pandoc", "-s", tmp.getName(), "-o", query + ".pdf"};
       List<String> commands = new ArrayList<String>();
-      commands.add("/usr/bin/pandoc");
+      commands.add("pandoc");
       commands.add("-s");
       commands.add(tmp.getName());
       commands.add("-o");
       commands.add(query + ".pdf");
+      ProcessBuilder processBuilder = new ProcessBuilder(commands);
 
-      processBuilder.command(commands); // "pandoc -s " + tmp.getName() + " -o " + query + ".pdf"
+//      processBuilder.command(commands); // "pandoc -s " + tmp.getName() + " -o " + query + ".pdf"
       Process process = processBuilder.start();
 
-      try {
+      /*try {
         process.waitFor();
       } catch (InterruptedException e) {
         e.printStackTrace();
-      }
+      }*/
 
       // tmp.delete(); // ME: this is getting ignored
     }
