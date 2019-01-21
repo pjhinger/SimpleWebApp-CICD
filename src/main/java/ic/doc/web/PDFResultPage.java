@@ -15,10 +15,37 @@ public class PDFResultPage implements Page {
 
   public void writeTo(HttpServletResponse resp) throws IOException {
     resp.setContentType("application/pdf");
-    resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\""); // ME: OR JUST REMOVE THIS LINE COMPLETELY? HTMLResult doesn't use this
-    // resp.setContentLength((int) outputFile.length());
-    PrintWriter writer = resp.getWriter();
-    writer.println("#" + query);
-    writer.println(answer);
+
+    if (answer == null || answer.isEmpty()) {
+      resp.setHeader("Content-Disposition", "inline;filename=\"sorry.pdf\"");
+      PrintWriter writer = resp.getWriter();
+      writer.println("#Sorry");
+      writer.println("Sorry, we didn't understand " + query + ".");
+    } else {
+      resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\"");
+
+      File tmp = File.createTempFile(query, ".tmp");
+      FileWriter fw = new FileWriter(tmp);
+      fw.write("#" + query + "\n");
+      fw.write(answer);
+      fw.close();
+
+      FileInputStream fileInputStream = new FileInputStream(tmp);
+      OutputStream servletOutputStream = resp.getOutputStream();
+      servletOutputStream.write(fileInputStream.readAllBytes());
+
+      ProcessBuilder processBuilder = new ProcessBuilder();
+
+      processBuilder.command("pandoc " + tmp.getName() + " --pdf-engine=xelatex -o " + query + ".pdf");
+      Process process = processBuilder.start();
+
+      try {
+        process.waitFor();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+
+      // tmp.delete(); // ME: this is getting ignored
+    }
   }
 }
