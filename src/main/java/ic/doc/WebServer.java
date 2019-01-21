@@ -2,7 +2,7 @@ package ic.doc;
 
 import ic.doc.web.HTMLResultPage;
 import ic.doc.web.IndexPage;
-import ic.doc.web.MarkdownResultsPage;
+import ic.doc.web.MarkdownResultPage;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -35,7 +35,7 @@ public class WebServer {
                 if(type.equals("html")) {
                     new HTMLResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
                 } else {
-                    new MarkdownResultsPage(query, new QueryProcessor().process(query)).writeTo(resp);
+                    new MarkdownResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
                 }
             }
         }
