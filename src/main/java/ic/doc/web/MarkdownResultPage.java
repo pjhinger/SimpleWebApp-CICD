@@ -15,14 +15,15 @@ public class MarkdownResultPage implements Page {
 
   public void writeTo(HttpServletResponse resp) throws IOException {
     resp.setContentType("text/plain"); // ME : THIS is the MIME Type? before said text/markdown?
-    resp.setHeader("Content-Disposition", "attachment;filename=\"" + query + ".md\"");
     PrintWriter writer = resp.getWriter();
 
     // Content
     if (answer == null || answer.isEmpty()) {
+      resp.setHeader("Content-Disposition", "attachment;filename=\"sorry.md\"");
       writer.println("#Sorry");
-      writer.println("Sorry, we didn't understand " + query);
+      writer.println("Sorry, we didn't understand " + query + ".");
     } else {
+      resp.setHeader("Content-Disposition", "attachment;filename=\"" + query + ".md\"");
       writer.println("#" + query);
       writer.println(answer);
     }
