@@ -36,7 +36,8 @@ public class PDFResultPage implements Page {
 
       ProcessBuilder processBuilder = new ProcessBuilder();
 
-      processBuilder.command("pandoc " + tmp.getName() + " -o " + query + ".pdf"); //tmp.delete();
+      String[] commands = {"pandoc", tmp.getName(), "--pdf-engine=xelatex", "-o", query + ".pdf"};
+      processBuilder.command(commands);
       Process process = processBuilder.start();
 
       try {
