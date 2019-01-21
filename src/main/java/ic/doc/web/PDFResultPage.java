@@ -45,8 +45,8 @@ public class PDFResultPage implements Page {
       commands.add(tmp.getName());
       commands.add("-o");
       commands.add(query + ".pdf");
-      //"pandoc -s " + tmp.getName() + " -o " + query + ".pdf"
-      processBuilder.command(commands);
+      //
+      processBuilder.command("pandoc -s " + tmp.getName() + " -o " + query + ".pdf");
       Process process = processBuilder.start();
 
       try {
