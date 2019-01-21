@@ -3,8 +3,6 @@ stages:
   - test
   - deploy
 
--dpl --provider=heroku --app=clc4217-simplewebapp --api-key=f469d3bc-ca9c-4cb0-bf44-b7dabdd23168
-
 compile:
   stage: compile
   script:
@@ -19,5 +17,4 @@ deploy:
   stage: deploy
   script:
     - mvn package
-    - export PORT=5000
-    - sh target/bin/simplewebapp > /dev/null 2>&1 &
+    - dpl --provider=heroku --app=clc4217-simplewebapp --api-key=f469d3bc-ca9c-4cb0-bf44-b7dabdd23168
