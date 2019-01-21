@@ -14,7 +14,7 @@ public class MarkdownResultsPage implements Page {
 
   public void writeTo(HttpServletResponse resp) throws IOException {
     resp.setContentType("text/plain"); // ME : THIS is the MIME Type? before said text/markdown?
-    resp.setHeader(query, "attachement;filename=" + query + ".md");
+    resp.setHeader(query, "attachement;filename=\"" + query + ".md\"");
     PrintWriter writer = resp.getWriter();
 
     // Content
@@ -38,11 +38,9 @@ public class MarkdownResultsPage implements Page {
       out.flush();
       out.close();*/
     }
-
     // create temporary file
     // write query result to it
     // serve file data to user by turning file into input stream and transfering its
     // bytes to the output stream of the http response
-
   }
 }
