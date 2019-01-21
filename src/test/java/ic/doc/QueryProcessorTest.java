@@ -37,8 +37,8 @@ public class QueryProcessorTest {
 
     @Test
     public void knowsAboutPascal() throws Exception {
-        assertThat(queryProcessor.process("Pascal"), containsString("generalising the work " +
-                "of Evangelista Torricelli"));
+        assertThat(queryProcessor.process("Pascal"), containsString("clarified the concepts " +
+                "of pressure and vacuum"));
     }
 
     @Test
