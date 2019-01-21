@@ -40,15 +40,14 @@ public class PDFResultPage implements Page {
 
       // String[] commands = {"pandoc", "-s", tmp.getName(), "-o", query + ".pdf"};
       List<String> commands = new ArrayList<String>();
-      commands.add("pandoc");
+      commands.add("/usr/bin/pandoc");
       commands.add("-s");
       commands.add(tmp.getName());
       commands.add("-o");
       commands.add(query + ".pdf");
-      //processBuilder.command("pandoc -s " + tmp.getName() + " -o " + query + ".pdf");
-      //Process process = processBuilder.start();
 
-      Process process = Runtime.getRuntime().exec("pandoc -s " + tmp.getName() + " -o " + query + ".pdf");
+      processBuilder.command(commands); // "pandoc -s " + tmp.getName() + " -o " + query + ".pdf"
+      Process process = processBuilder.start();
 
       try {
         process.waitFor();
