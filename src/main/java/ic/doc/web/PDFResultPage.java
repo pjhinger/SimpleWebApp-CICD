@@ -2,6 +2,8 @@ package ic.doc.web;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PDFResultPage implements Page {
 
@@ -36,7 +38,14 @@ public class PDFResultPage implements Page {
 
       ProcessBuilder processBuilder = new ProcessBuilder();
 
-      String[] commands = {"pandoc", "-s", tmp.getName(), "-o", query + ".pdf"};
+      // String[] commands = {"pandoc", "-s", tmp.getName(), "-o", query + ".pdf"};
+      List<String> commands = new ArrayList<String>();
+      commands.add("pandoc");
+      commands.add("-s");
+      commands.add(tmp.getName());
+      commands.add("-o");
+      commands.add(query + ".pdf");
+      //"pandoc -s " + tmp.getName() + " -o " + query + ".pdf"
       processBuilder.command(commands);
       Process process = processBuilder.start();
 
