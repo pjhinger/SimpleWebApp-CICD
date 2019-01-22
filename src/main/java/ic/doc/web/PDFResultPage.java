@@ -2,7 +2,6 @@ package ic.doc.web;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +24,7 @@ public class PDFResultPage implements Page {
       writer.println("#Sorry");
       writer.println("Sorry, we didn't understand " + query + ".");
     } else {
-      String pdfFileName = query + ".pdf";
-      resp.setHeader("Content-Disposition", "inline;filename=\"" + pdfFileName + "\"");
+      resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\"");
 
       File md = File.createTempFile(query, ".md");
       md.deleteOnExit();
@@ -35,10 +33,10 @@ public class PDFResultPage implements Page {
       fw.write(answer);
       fw.close();
 
-      //File pdf = File.createTempFile(query, ".pdf");
-      // pdf.deleteOnExit();
+      File pdf = File.createTempFile(query, ".pdf");
+      pdf.deleteOnExit();
 
-      String[] commands = {"bash", "pandoc", "-s", md.getName(), "-o", pdfFileName};
+      String[] commands = {"bash", "pandoc", "-s", md.getAbsolutePath(), "-o", pdfFileName};
 
       ProcessBuilder processBuilder = new ProcessBuilder(commands);
       Process process = processBuilder.start();
@@ -49,7 +47,6 @@ public class PDFResultPage implements Page {
         e.printStackTrace();
       }
 
-      File pdf = Paths.get(pdfFileName).toFile();
       FileInputStream pdfInputStream = new FileInputStream(pdf);
       OutputStream servletOutputStream = resp.getOutputStream();
       servletOutputStream.write(pdfInputStream.readAllBytes());
