@@ -36,7 +36,7 @@ public class PDFResultPage implements Page {
       File pdf = File.createTempFile(query, ".pdf");
       pdf.deleteOnExit();
 
-      String[] commands = {"bash", "pandoc", "-s", md.getAbsolutePath(), "-o", pdfFileName};
+      String[] commands = {"bash", "pandoc", "-s", md.getName(), "-o", pdf.getName()};
 
       ProcessBuilder processBuilder = new ProcessBuilder(commands);
       Process process = processBuilder.start();
