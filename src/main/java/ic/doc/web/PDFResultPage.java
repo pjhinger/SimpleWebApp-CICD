@@ -32,21 +32,20 @@ public class PDFResultPage implements Page {
       fw.write(answer);
       fw.close();
 
+
       FileInputStream fileInputStream = new FileInputStream(tmp);
       OutputStream servletOutputStream = resp.getOutputStream();
-      System.out.println(fileInputStream.available());
-      byte[] data = new byte[(int) tmp.length()];
-      fileInputStream.read(data);
-      servletOutputStream.write(data);
+      servletOutputStream.write(fileInputStream.readAllBytes());
 
       // String[] commands = {"pandoc", "-s", tmp.getName(), "-o", query + ".pdf"};
       List<String> commands = new ArrayList<String>();
       commands.add("bash");
       commands.add("pandoc");
       commands.add("-s");
+      commands.add(tmp.getName());
       commands.add("-o");
       commands.add(query + ".pdf");
-      commands.add(tmp.getName());
+
       ProcessBuilder processBuilder = new ProcessBuilder(commands);
 
 //      processBuilder.command(commands); // "pandoc -s " + tmp.getName() + " -o " + query + ".pdf"
