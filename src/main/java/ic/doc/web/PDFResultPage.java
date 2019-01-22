@@ -24,7 +24,7 @@ public class PDFResultPage implements Page {
       writer.println("#Sorry");
       writer.println("Sorry, we didn't understand " + query + ".");
     } else {
-      resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\"");
+      resp.setHeader("Content-Disposition", "attachment;filename=\"" + query + ".pdf\"");
 
       File md = File.createTempFile(query, ".md");
       md.deleteOnExit();
