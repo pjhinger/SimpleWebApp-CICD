@@ -26,30 +26,35 @@ public class PDFResultPage implements Page {
     } else {
       resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\"");
 
-      File tmp = File.createTempFile(query, ".md");
-      FileWriter fw = new FileWriter(tmp);
+      File md = File.createTempFile(query, ".md");
+      FileWriter fw = new FileWriter(md);
       fw.write("#" + query + "\n");
       fw.write(answer);
       fw.close();
 
 
-      FileInputStream fileInputStream = new FileInputStream(tmp);
-      OutputStream servletOutputStream = resp.getOutputStream();
-      servletOutputStream.write(fileInputStream.readAllBytes());
+      // FileInputStream mdInputStream = new FileInputStream(md);
+      // OutputStream servletOutputStream = resp.getOutputStream();
+      // servletOutputStream.write(mdInputStream.readAllBytes());
+
+      File pdf = File.createTempFile(query, ".pdf");
 
       // String[] commands = {"pandoc", "-s", tmp.getName(), "-o", query + ".pdf"};
-      List<String> commands = new ArrayList<String>();
+      List<String> commands = new ArrayList<>();
       commands.add("bash");
       commands.add("pandoc");
       commands.add("-s");
-      commands.add(tmp.getName());
+      commands.add(md.getName());
       commands.add("-o");
-      commands.add(query + ".pdf");
+      commands.add(pdf.getName());
 
       ProcessBuilder processBuilder = new ProcessBuilder(commands);
 
-//      processBuilder.command(commands); // "pandoc -s " + tmp.getName() + " -o " + query + ".pdf"
       Process process = processBuilder.start();
+
+      FileInputStream pdfInputStream = new FileInputStream(pdf);
+      OutputStream servletOutputStream = resp.getOutputStream();
+      servletOutputStream.write(pdfInputStream.readAllBytes());
 
       /*try {
         process.waitFor();
@@ -57,7 +62,7 @@ public class PDFResultPage implements Page {
         e.printStackTrace();
       }*/
 
-      // tmp.delete(); // ME: this is getting ignored
+      tmp.deleteOnExit(); // ME: this is getting ignored
     }
   }
 }

@@ -35,7 +35,7 @@ public class MarkdownResultPage implements Page {
       OutputStream servletOutputStream = resp.getOutputStream();
       servletOutputStream.write(fileInputStream.readAllBytes());
 
-      tmp.delete();
+      tmp.deleteOnExit();
     }
   }
 }
