@@ -33,9 +33,11 @@ public class PDFResultPage implements Page {
       fw.close();
 
 
-      FileInputStream fileInputStream = new FileInputStream(tmp);
+
+      /*FileInputStream fileInputStream = new FileInputStream(tmp);
       OutputStream servletOutputStream = resp.getOutputStream();
-      servletOutputStream.write(fileInputStream.readAllBytes());
+      servletOutputStream.write(fileInputStream.readAllBytes());*/
+
 
       // String[] commands = {"pandoc", "-s", tmp.getName(), "-o", query + ".pdf"};
       List<String> commands = new ArrayList<String>();
@@ -44,7 +46,7 @@ public class PDFResultPage implements Page {
       commands.add("-s");
       commands.add(tmp.getName());
       commands.add("-o");
-      commands.add(query + ".pdf");
+      commands.add(resp.getHeader("Content-Disposition"));
 
       ProcessBuilder processBuilder = new ProcessBuilder(commands);
 
