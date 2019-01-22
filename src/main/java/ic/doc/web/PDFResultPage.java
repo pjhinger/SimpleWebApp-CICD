@@ -34,8 +34,8 @@ public class PDFResultPage implements Page {
 
 
 
-      /*FileInputStream fileInputStream = new FileInputStream(tmp);
-      OutputStream servletOutputStream = resp.getOutputStream();
+
+      /*OutputStream servletOutputStream = resp.getOutputStream();
       servletOutputStream.write(fileInputStream.readAllBytes());*/
 
 
@@ -46,12 +46,16 @@ public class PDFResultPage implements Page {
       commands.add("-s");
       commands.add(tmp.getName());
       commands.add("-o");
-      commands.add(resp.getHeader("Content-Disposition"));
+      commands.add(query + ".pdf");
 
       ProcessBuilder processBuilder = new ProcessBuilder(commands);
 
 //      processBuilder.command(commands); // "pandoc -s " + tmp.getName() + " -o " + query + ".pdf"
       Process process = processBuilder.start();
+
+      FileInputStream fileInputStream = new FileInputStream(query + ".pdf");
+      OutputStream servletOutputStream = resp.getOutputStream();
+      servletOutputStream.write(fileInputStream.readAllBytes());
 
       /*try {
         process.waitFor();
