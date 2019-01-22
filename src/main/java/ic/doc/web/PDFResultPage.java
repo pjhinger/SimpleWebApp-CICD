@@ -26,7 +26,7 @@ public class PDFResultPage implements Page {
     } else {
       resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\"");
 
-      File tmp = File.createTempFile(query, ".tmp");
+      File tmp = File.createTempFile(query, ".md");
       FileWriter fw = new FileWriter(tmp);
       fw.write("#" + query + "\n");
       fw.write(answer);
@@ -34,10 +34,12 @@ public class PDFResultPage implements Page {
 
       FileInputStream fileInputStream = new FileInputStream(tmp);
       OutputStream servletOutputStream = resp.getOutputStream();
+      System.out.println(fileInputStream.available());
       servletOutputStream.write(fileInputStream.readAllBytes());
 
       // String[] commands = {"pandoc", "-s", tmp.getName(), "-o", query + ".pdf"};
       List<String> commands = new ArrayList<String>();
+      commands.add("bash");
       commands.add("pandoc");
       commands.add("-s");
       commands.add(tmp.getName());
