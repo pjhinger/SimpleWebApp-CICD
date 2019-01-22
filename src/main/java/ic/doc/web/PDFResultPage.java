@@ -26,6 +26,9 @@ public class PDFResultPage implements Page {
     } else {
       resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\"");
 
+      System.out.println("WE HAVE A PDF FILE THAT DOESN'T WANNA SHOW UP");
+      System.console().writer().print("WE HAVE A PDF FILE THAT DOESN'T WANNA SHOW UP");
+
       File md = File.createTempFile(query, ".md");
       md.deleteOnExit();
       FileWriter fw = new FileWriter(md);
@@ -58,7 +61,11 @@ public class PDFResultPage implements Page {
       OutputStream servletOutputStream = resp.getOutputStream();
       servletOutputStream.write(pdfInputStream.readAllBytes());
 
-
+      /*
+      * ideas
+      * specify pdf engine (conversion)
+      * work out if files are actually being built
+      * */
     }
   }
 }
