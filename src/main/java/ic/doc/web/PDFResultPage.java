@@ -38,9 +38,8 @@ public class PDFResultPage implements Page {
       File pdf = File.createTempFile(query, ".pdf");
       pdf.deleteOnExit();
 
-      ProcessBuilder processBuilder =
-          new ProcessBuilder("/usr/bin/bash", "/usr/bin/pandoc", md.getAbsolutePath(),
-              "-f", "markdown", "-o", pdf.getAbsolutePath());
+      ProcessBuilder processBuilder = new ProcessBuilder("pandoc",
+          md.getAbsolutePath(), "-f", "markdown", "-o", pdf.getAbsolutePath());
 
       try {
         Process process = processBuilder.start();
