@@ -33,10 +33,6 @@ public class PDFResultPage implements Page {
       fw.write(answer);
       fw.close();
 
-      // FileInputStream mdInputStream = new FileInputStream(md);
-      // OutputStream servletOutputStream = resp.getOutputStream();
-      // servletOutputStream.write(mdInputStream.readAllBytes());
-
       File pdf = File.createTempFile(query, ".pdf");
       pdf.deleteOnExit();
 
@@ -45,9 +41,9 @@ public class PDFResultPage implements Page {
       commands.add("bash");
       commands.add("pandoc");
       commands.add("-s");
-      commands.add(md.getName());
+      commands.add(md.getAbsolutePath());
       commands.add("-o");
-      commands.add(pdf.getName());
+      commands.add(pdf.getAbsolutePath());
 
       ProcessBuilder processBuilder = new ProcessBuilder(commands);
       Process process = processBuilder.start();
