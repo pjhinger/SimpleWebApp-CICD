@@ -26,6 +26,12 @@ public class PDFResultPage implements Page {
     } else {
       resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\"");
 
+      resp.setHeader("Expires", "0");
+      resp.setHeader("Cache-Control",
+          "must-revalidate, post-check=0, pre-check=0");
+      resp.setHeader("Pragma", "public");
+
+
       File md = File.createTempFile(query, ".md");
       md.deleteOnExit();
       FileWriter fw = new FileWriter(md);
@@ -48,8 +54,10 @@ public class PDFResultPage implements Page {
       }
 
       FileInputStream pdfInputStream = new FileInputStream(pdf);
+      byte[] bytes = pdfInputStream.readAllBytes();
+      resp.setContentLength(bytes.length);
       OutputStream servletOutputStream = resp.getOutputStream();
-      servletOutputStream.write(pdfInputStream.readAllBytes());
+      servletOutputStream.write(bytes);
       // flush/close?
 
       /*
