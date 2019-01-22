@@ -2,6 +2,8 @@ package ic.doc.web;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +26,12 @@ public class PDFResultPage implements Page {
       writer.println("#Sorry");
       writer.println("Sorry, we didn't understand " + query + ".");
     } else {
-      resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\"");
+      String pdfname = query + ".pdf";
+      resp.setHeader("Content-Disposition", "inline;filename=\"" + pdfname + "\"");
 
       resp.setHeader("Expires", "0");
-      resp.setHeader("Cache-Control",
-          "must-revalidate, post-check=0, pre-check=0");
+      resp.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
       resp.setHeader("Pragma", "public");
-
 
       File md = File.createTempFile(query, ".md");
       md.deleteOnExit();
@@ -38,11 +39,13 @@ public class PDFResultPage implements Page {
       fw.write("#" + query + "\n");
       fw.write(answer);
       fw.close();
+      System.out.println("md file size = " + md.length());
 
       File pdf = File.createTempFile(query, ".pdf");
       pdf.deleteOnExit();
+      System.out.println("pdf size BEFORE = " + pdf.length());
 
-      String[] commands = {"bash", "pandoc", "-s", md.getName(), "-o", pdf.getName()};
+      String[] commands = {"bash", "-c", "pandoc", "-s", md.getPath(), "--pdf-engine=xelatex", "-o", pdf.getPath()};
 
       ProcessBuilder processBuilder = new ProcessBuilder(commands);
       Process process = processBuilder.start();
@@ -52,19 +55,26 @@ public class PDFResultPage implements Page {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
+      System.out.println("pdf size AFTER = " + pdf.length());
+
+      /*File file = new File("/homes/pj2017/Downloads/eg.pdf");
+      FileInputStream fis = new FileInputStream(file);
+      byte[] bytes = fis.readAllBytes();*/
 
       FileInputStream pdfInputStream = new FileInputStream(pdf);
       byte[] bytes = pdfInputStream.readAllBytes();
       resp.setContentLength(bytes.length);
       OutputStream servletOutputStream = resp.getOutputStream();
       servletOutputStream.write(bytes);
+      //System.out.println("size = " + Integer.toHexString(bytes.length));
+      //System.out.println(bytes);
+      // delete file?
       // flush/close?
 
-      /*
-      * ideas
-      * specify pdf engine (conversion)
-      * work out if files are actually being built
-      * */
+      /* ideas
+       * specify pdf engine (conversion)
+       * work out if files are actually being built
+       * */
     }
   }
 }
