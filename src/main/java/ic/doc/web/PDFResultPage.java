@@ -25,7 +25,8 @@ public class PDFResultPage implements Page {
       writer.println("#Sorry");
       writer.println("Sorry, we didn't understand " + query + ".");
     } else {
-      resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\"");
+      String pdfFileName = query + ".pdf";
+      resp.setHeader("Content-Disposition", "inline;filename=\"" + pdfFileName + "\"");
 
       File md = File.createTempFile(query, ".md");
       md.deleteOnExit();
@@ -34,11 +35,10 @@ public class PDFResultPage implements Page {
       fw.write(answer);
       fw.close();
 
-      String pdfFileName = query + ".pdf";
       //File pdf = File.createTempFile(query, ".pdf");
       // pdf.deleteOnExit();
 
-      String[] commands = {"bash", "pandoc", "-s", "-o", md.getName(), pdfFileName};
+      String[] commands = {"bash", "pandoc", "-s", md.getName(), "-o", pdfFileName};
 
       ProcessBuilder processBuilder = new ProcessBuilder(commands);
       Process process = processBuilder.start();
