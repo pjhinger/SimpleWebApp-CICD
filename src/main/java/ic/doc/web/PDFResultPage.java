@@ -32,7 +32,6 @@ public class PDFResultPage implements Page {
       fw.write(answer);
       fw.close();
 
-
       // FileInputStream mdInputStream = new FileInputStream(md);
       // OutputStream servletOutputStream = resp.getOutputStream();
       // servletOutputStream.write(mdInputStream.readAllBytes());
