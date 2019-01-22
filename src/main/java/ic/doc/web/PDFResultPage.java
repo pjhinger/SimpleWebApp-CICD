@@ -48,15 +48,17 @@ public class PDFResultPage implements Page {
       ProcessBuilder processBuilder = new ProcessBuilder(commands);
       Process process = processBuilder.start();
 
+      try {
+        process.waitFor();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+
       FileInputStream pdfInputStream = new FileInputStream(pdf);
       OutputStream servletOutputStream = resp.getOutputStream();
       servletOutputStream.write(pdfInputStream.readAllBytes());
 
-      /*try {
-        process.waitFor();
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }*/
+
     }
   }
 }
