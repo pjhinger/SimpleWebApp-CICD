@@ -27,6 +27,7 @@ public class PDFResultPage implements Page {
       resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\"");
 
       File md = File.createTempFile(query, ".md");
+      md.deleteOnExit();
       FileWriter fw = new FileWriter(md);
       fw.write("#" + query + "\n");
       fw.write(answer);
@@ -37,6 +38,7 @@ public class PDFResultPage implements Page {
       // servletOutputStream.write(mdInputStream.readAllBytes());
 
       File pdf = File.createTempFile(query, ".pdf");
+      pdf.deleteOnExit();
 
       // String[] commands = {"pandoc", "-s", tmp.getName(), "-o", query + ".pdf"};
       List<String> commands = new ArrayList<>();
@@ -48,7 +50,6 @@ public class PDFResultPage implements Page {
       commands.add(pdf.getName());
 
       ProcessBuilder processBuilder = new ProcessBuilder(commands);
-
       Process process = processBuilder.start();
 
       FileInputStream pdfInputStream = new FileInputStream(pdf);
@@ -60,8 +61,6 @@ public class PDFResultPage implements Page {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }*/
-
-      tmp.deleteOnExit(); // ME: this is getting ignored
     }
   }
 }
