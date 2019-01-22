@@ -34,6 +34,7 @@ public class MarkdownResultPage implements Page {
       FileInputStream fileInputStream = new FileInputStream(tmp);
       OutputStream servletOutputStream = resp.getOutputStream();
       servletOutputStream.write(fileInputStream.readAllBytes());
+      // flush/close?
 
       tmp.deleteOnExit();
     }
