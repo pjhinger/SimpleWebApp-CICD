@@ -26,8 +26,6 @@ public class PDFResultPage implements Page {
     } else {
       resp.setHeader("Content-Disposition", "inline;filename=\"" + query + ".pdf\"");
 
-      System.console().writer().print("WE HAVE A PDF FILE THAT DOESN'T WANNA SHOW UP");
-
       File md = File.createTempFile(query, ".md");
       md.deleteOnExit();
       FileWriter fw = new FileWriter(md);
@@ -36,9 +34,10 @@ public class PDFResultPage implements Page {
       fw.close();
 
       File pdf = File.createTempFile(query, ".pdf");
-      pdf.deleteOnExit();
+      // pdf.deleteOnExit();
 
-      // check full addresses of tmp files
+      // check full addresses of tmp files to see if they can be accessed
+      System.out.println(pdf.getAbsolutePath() + md.getAbsolutePath());
 
       // String[] commands = {"pandoc", "-s", tmp.getName(), "-o", query + ".pdf"};
       List<String> commands = new ArrayList<>();
