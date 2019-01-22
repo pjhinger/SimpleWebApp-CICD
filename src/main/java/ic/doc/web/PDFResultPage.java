@@ -35,7 +35,9 @@ public class PDFResultPage implements Page {
       FileInputStream fileInputStream = new FileInputStream(tmp);
       OutputStream servletOutputStream = resp.getOutputStream();
       System.out.println(fileInputStream.available());
-      servletOutputStream.write(fileInputStream.readAllBytes());
+      byte[] data = new byte[(int) tmp.length()];
+      fileInputStream.read(data);
+      servletOutputStream.write(data);
 
       // String[] commands = {"pandoc", "-s", tmp.getName(), "-o", query + ".pdf"};
       List<String> commands = new ArrayList<String>();
