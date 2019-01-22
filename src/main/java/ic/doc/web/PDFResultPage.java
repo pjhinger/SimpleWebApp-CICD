@@ -45,15 +45,22 @@ public class PDFResultPage implements Page {
       pdf.deleteOnExit();
       System.out.println("pdf size BEFORE = " + pdf.length());
 
-      String[] commands = {"bash", "-c", "pandoc", "-s", md.getPath(), "--pdf-engine=xelatex", "-o", pdf.getPath()};
+      /*new ProcessBuilder("bash", "-c", "pandoc", "-s", md.getAbsolutePath(),
+          "--pdf-engine=xelatex", "-o", pdf.getAbsolutePath());*/
 
-      ProcessBuilder processBuilder = new ProcessBuilder(commands);
-      Process process = processBuilder.start();
+      ProcessBuilder processBuilder =
+          new ProcessBuilder("/usr/bin/bash", "-c", "/usr/bin/pandoc -s " + md.getAbsolutePath() +
+              " --pdf-engine=xelatex -o " + pdf.getAbsolutePath());
 
       try {
+        Process process = processBuilder.start();
         process.waitFor();
-      } catch (InterruptedException e) {
+        System.out.println("finished the pandoc");
+        System.out.println("process exit code: " + process.exitValue());
+        System.out.println("" + process.getErrorStream().readAllBytes());
+      } catch (InterruptedException | IOException e) {
         e.printStackTrace();
+        System.out.println("caught an exception");
       }
       System.out.println("pdf size AFTER = " + pdf.length());
 
