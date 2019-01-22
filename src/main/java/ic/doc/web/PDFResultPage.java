@@ -42,9 +42,9 @@ public class PDFResultPage implements Page {
       commands.add("bash");
       commands.add("pandoc");
       commands.add("-s");
-      commands.add(tmp.getName());
       commands.add("-o");
       commands.add(query + ".pdf");
+      commands.add(tmp.getName());
       ProcessBuilder processBuilder = new ProcessBuilder(commands);
 
 //      processBuilder.command(commands); // "pandoc -s " + tmp.getName() + " -o " + query + ".pdf"
