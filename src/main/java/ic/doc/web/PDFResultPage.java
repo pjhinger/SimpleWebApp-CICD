@@ -39,7 +39,7 @@ public class PDFResultPage implements Page {
       pdf.deleteOnExit();
 
       ProcessBuilder processBuilder =
-          new ProcessBuilder("/usr/bin/pandoc", md.getAbsolutePath(),
+          new ProcessBuilder("/usr/bin/bash", "/usr/bin/pandoc", md.getAbsolutePath(),
               "-f", "markdown", "-o", pdf.getAbsolutePath());
 
       try {
