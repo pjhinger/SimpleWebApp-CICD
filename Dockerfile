@@ -1,4 +1,4 @@
-FROM openjdk:12
+FROM ubuntu:14.04
 
 ENV directory /simplewebapp
 
