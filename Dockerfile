@@ -1,3 +1,4 @@
+FROM openjdk:12
 FROM ubuntu:14.04
 
 ENV directory /simplewebapp
@@ -6,7 +7,7 @@ WORKDIR ${directory}
 
 COPY . ${directory}
 
-RUN apt-get update
+RUN ["/bin/bash", "-c", "apt-get update"]
 RUN apt-get install -y maven pandoc
 RUN mvn package
 
