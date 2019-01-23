@@ -8,7 +8,7 @@ WORKDIR ${directory}
 COPY . ${directory}
 
 RUN apt-get update
-RUN apt-get install -y maven pandoc
+RUN apt-get install -y maven pandoc texlive-latex-base texlive-fonts-recommended
 RUN mvn package
 
 EXPOSE 8080
