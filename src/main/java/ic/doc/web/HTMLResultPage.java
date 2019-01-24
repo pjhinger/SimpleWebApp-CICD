@@ -8,10 +8,12 @@ public class HTMLResultPage implements Page {
 
   private final String query;
   private final String answer;
+  //private final String picURL;
 
   public HTMLResultPage(String query, String answer) {
     this.query = query;
     this.answer = answer;
+    //this.picURL = "https://en.wikipedia.org/wiki/William_Shakespeare#/media/File:Shakespeare.jpg";
   }
 
   public void writeTo(HttpServletResponse resp) throws IOException {
@@ -32,7 +34,7 @@ public class HTMLResultPage implements Page {
       writer.println("<p>" + answer.replace("\n", "<br>") + "</p>");
     }
 
-    //writer.println("<p><a href=\"/\">Download Query Result</a></p>" + // ME: what to put for href
+    //writer.println("<p><img href=\"" + picURL + "\"> </p>" );
     writer.println("<p><a href=\"/\">Back to Search Page</a></p>");
 
     // Footer
