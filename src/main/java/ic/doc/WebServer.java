@@ -1,9 +1,6 @@
 package ic.doc;
 
-import ic.doc.web.HTMLResultPage;
-import ic.doc.web.IndexPage;
-import ic.doc.web.MarkdownResultPage;
-import ic.doc.web.PDFResultPage;
+import ic.doc.web.*;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -35,10 +32,8 @@ public class WebServer {
       } else {
         if (type.equals("html")) {
           new HTMLResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
-        } else if (type.equals("markdown")) {
-          new MarkdownResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
         } else {
-          new PDFResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
+          new DownloadPage(query, new QueryProcessor().process(query), type).writeTo(resp);
         }
       }
     }
