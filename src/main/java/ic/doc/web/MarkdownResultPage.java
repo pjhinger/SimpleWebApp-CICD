@@ -31,6 +31,8 @@ public class MarkdownResultPage implements Page {
       FileWriter fw = new FileWriter(tmp);
       fw.write("#" + query + "\n");
       fw.write(answer.getAnswer());
+      fw.write("![alt text]("+answer.getImgURL()+" \"Pic\")");
+      fw.write("[Learn More!]("+answer.getWikiURL()+")");
       fw.close();
 
       FileInputStream fileInputStream = new FileInputStream(tmp);

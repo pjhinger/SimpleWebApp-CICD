@@ -35,6 +35,8 @@ public class PDFResultPage implements Page {
       FileWriter fw = new FileWriter(md);
       fw.write("#" + query + "\n");
       fw.write(answer.getAnswer());
+      fw.write("![alt text]("+answer.getImgURL()+" \"Pic\")");
+      fw.write("[Learn More!]("+answer.getWikiURL()+")");
       fw.close();
 
       File pdf = File.createTempFile(query, ".pdf");
