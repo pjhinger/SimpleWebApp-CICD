@@ -1,9 +1,6 @@
 package ic.doc;
 
-import ic.doc.web.HTMLResultPage;
-import ic.doc.web.IndexPage;
-import ic.doc.web.MarkdownResultPage;
-import ic.doc.web.PDFResultPage;
+import ic.doc.web.*;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -12,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class WebServer {
 
@@ -33,12 +31,18 @@ public class WebServer {
       if (query == null || type == null) {
         new IndexPage().writeTo(resp);
       } else {
-        if (type.equals("html")) {
-          new HTMLResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
-        } else if (type.equals("markdown")) {
-          new MarkdownResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
+        QueryProcessor queryProcessor = new QueryProcessor();
+        List<Query> possibilities = queryProcessor.process(query);
+        if (possibilities.size() == 1) {
+          if (type.equals("html")) {
+            new HTMLResultPage(query, queryProcessor.process(query)).writeTo(resp);
+          } else if (type.equals("markdown")) {
+            new MarkdownResultPage(query, queryProcessor.process(query)).writeTo(resp);
+          } else {
+            new PDFResultPage(query, queryProcessor.process(query)).writeTo(resp);
+          }
         } else {
-          new PDFResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
+          new ChoicePage(possibilities);
         }
       }
     }

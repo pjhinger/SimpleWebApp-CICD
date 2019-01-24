@@ -66,26 +66,29 @@ public class QueryProcessor {
 
   }
 
-  public Query process(String query) {
-    return search(query);
-  }
-
-  private Query search(String query) {
+  public List<Query> process(String query) {
     /*For same surnames, add to a list instead of returning, if list length
     is more than 1, then generate choice page, else return answer*/
+    List<Query> possibilities = new ArrayList<>();
 
     for(Query q:queriesMap) {
       List<String> name = q.getQuery();
       boolean found = true;
       StringTokenizer queryTokens = new StringTokenizer(query);
-      for(int i = 0; queryTokens.hasMoreTokens(); i++){
+      while (queryTokens.hasMoreTokens()) {
         found &= name.contains(queryTokens.nextToken().toLowerCase());
       }
       if (found) {
-        return q;
+        possibilities.add(q);
       }
     }
 
-    return new Query(null, "","","");
+    if (possibilities.isEmpty()) {
+      List<Query> noQueryFound = new ArrayList<>()
+      noQueryFound.add(new Query(null, "", "", ""));
+      return noQueryFound;
+    }
+    return possibilities;
   }
+
 }
