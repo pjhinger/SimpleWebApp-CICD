@@ -41,8 +41,7 @@ public class QueryProcessorTest {
   @Test
   public void knowsAboutPascal() throws Exception {
     assertThat(queryProcessor.process("Pascal").getAnswer(), containsString(
-            "clarified the concepts " +
-        "of pressure and vacuum"));
+            "clarified the concepts of pressure and vacuum"));
   }
 
   @Test
@@ -50,4 +49,86 @@ public class QueryProcessorTest {
     assertThat(queryProcessor.process("shakespeare").getAnswer(), containsString(
             "playwright"));
   }
+
+  @Test
+  public void knowsAboutWilliam() throws Exception {
+    assertThat(queryProcessor.process("william").getAnswer(), containsString(
+            "playwright"));
+  }
+
+  @Test
+  public void knowsAboutIsaac() throws Exception {
+    assertThat(queryProcessor.process("Isaac").getAnswer(), containsString(
+            "science " +
+            "fiction"));
+  }
+
+  @Test
+  public void knowsAboutAlan() throws Exception {
+    assertThat(queryProcessor.process("Alan").getAnswer(), containsString(
+            "logician"));
+  }
+
+  @Test
+  public void knowsAboutAda() throws Exception {
+    assertThat(queryProcessor.process("Ada").getAnswer(), containsString(
+            "Countess of Lovelace"));
+  }
+
+  @Test
+  public void knowsAboutBlaise() throws Exception {
+    assertThat(queryProcessor.process("Blaise").getAnswer(), containsString(
+            "clarified the concepts of pressure and vacuum"));
+  }
+
+  @Test
+  public void knowsAboutWilliamShakespeare() throws Exception {
+    assertThat(queryProcessor.process("William Shakespeare").getAnswer(),
+            containsString(
+            "playwright"));
+  }
+
+  @Test
+  public void knowsAboutIsaacAsimov() throws Exception {
+    assertThat(queryProcessor.process("Isaac Asimov").getAnswer(),
+            containsString(
+            "science " +
+                    "fiction"));
+  }
+
+  @Test
+  public void knowsAboutAlanTuring() throws Exception {
+    assertThat(queryProcessor.process("Alan Turing").getAnswer(),
+            containsString(
+            "logician"));
+  }
+
+  @Test
+  public void knowsAboutAdaLovelace() throws Exception {
+    assertThat(queryProcessor.process("Ada Lovelace").getAnswer(),
+            containsString(
+            "Countess of Lovelace"));
+  }
+
+  @Test
+  public void knowsAboutBlaisePascal() throws Exception {
+    assertThat(queryProcessor.process("Blaise Pascal").getAnswer(),
+            containsString(
+            "clarified the concepts of pressure and vacuum"));
+  }
+
+  @Test
+  public void recognisesDisorderedName() throws Exception {
+    assertThat(queryProcessor.process("Lovelace Ada Augusta").getAnswer(),
+            containsString(
+                    "Countess of Lovelace"));
+  }
+
+  @Test
+  public void recognisesFalseName() throws Exception {
+    assertThat(queryProcessor.process("William Pascal Lovelace").getAnswer(),
+            is(""));
+  }
+
+
 }

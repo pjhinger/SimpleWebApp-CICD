@@ -70,6 +70,24 @@ public class QueryProcessor {
     return search(query);
   }
 
+  private List<String> disambiguation(String query) {
+    List<String> names = new ArrayList<>();
+
+    for(Query q:queriesMap) {
+      List<String> name = q.getQuery();
+      boolean found = true;
+      StringTokenizer queryTokens = new StringTokenizer(query);
+      for(int i = 0; queryTokens.hasMoreTokens(); i++){
+        found &= name.contains(queryTokens.nextToken().toLowerCase());
+      }
+      if (found) {
+        String[] option = (String[])name.toArray();
+        names.add(String.join(" ", option));
+      }
+    }
+    return names;
+  }
+
   private Query search(String query) {
     /*For same surnames, add to a list instead of returning, if list length
     is more than 1, then generate choice page, else return answer*/
