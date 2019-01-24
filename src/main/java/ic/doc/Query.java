@@ -11,6 +11,9 @@ public class Query {
   public Query(List<String> query, String answer, String imgURL, String wikiURL) {
     this.query = query;
     this.answer = answer;
+    if(query != null) {
+      this.answer = this.answer.concat("\n");
+    }
     this.imgURL = imgURL;
     this.wikiURL = wikiURL;
   }

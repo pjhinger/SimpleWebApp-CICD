@@ -1,5 +1,7 @@
 package ic.doc.web;
 
+import ic.doc.Query;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,9 +9,9 @@ import java.io.PrintWriter;
 public class HTMLResultPage implements Page {
 
   private final String query;
-  private final String answer;
+  private final Query answer;
 
-  public HTMLResultPage(String query, String answer) {
+  public HTMLResultPage(String query, Query answer) {
     this.query = query;
     this.answer = answer;
   }
@@ -24,14 +26,17 @@ public class HTMLResultPage implements Page {
     writer.println("<body>");
 
     // Content
-    if (answer == null || answer.isEmpty()) {
+    if (answer == null || answer.getAnswer() == null || answer.getAnswer().isEmpty()) {
       writer.println("<h1>Sorry</h1>");
       writer.print("<p>Sorry, we didn't understand <em>" + query + "</em></p>");
     } else {
       writer.println("<h1>" + query + "</h1>");
-      writer.println("<p>" + answer.replace("\n", "<br>") + "</p>");
+      writer.println("<p>" + answer.getAnswer().replace("\n", "<br>") + "</p>");
     }
 
+    writer.println("<p> <img src=\"" + answer.getImgURL() + "\"> </p>");
+    writer.println("<p><a href=\""+answer.getWikiURL()+"\" target=\"_blank" +
+            "\">Learn More!</a></p>");
     writer.println("<p><a href=\"/\">Back to Search Page</a></p>");
 
     // Footer
