@@ -57,36 +57,11 @@ public class QueryProcessorTest {
   }
 
   @Test
-  public void knowsAboutIsaac() throws Exception {
-    assertThat(queryProcessor.process("Isaac").getAnswer(), containsString(
-            "science " +
-            "fiction"));
-  }
-
-  @Test
-  public void knowsAboutAlan() throws Exception {
-    assertThat(queryProcessor.process("Alan").getAnswer(), containsString(
-            "logician"));
-  }
-
-  @Test
   public void knowsAboutAda() throws Exception {
     assertThat(queryProcessor.process("Ada").getAnswer(), containsString(
             "Countess of Lovelace"));
   }
 
-  @Test
-  public void knowsAboutBlaise() throws Exception {
-    assertThat(queryProcessor.process("Blaise").getAnswer(), containsString(
-            "clarified the concepts of pressure and vacuum"));
-  }
-
-  @Test
-  public void knowsAboutWilliamShakespeare() throws Exception {
-    assertThat(queryProcessor.process("William Shakespeare").getAnswer(),
-            containsString(
-            "playwright"));
-  }
 
   @Test
   public void knowsAboutIsaacAsimov() throws Exception {
@@ -108,13 +83,6 @@ public class QueryProcessorTest {
     assertThat(queryProcessor.process("Ada Lovelace").getAnswer(),
             containsString(
             "Countess of Lovelace"));
-  }
-
-  @Test
-  public void knowsAboutBlaisePascal() throws Exception {
-    assertThat(queryProcessor.process("Blaise Pascal").getAnswer(),
-            containsString(
-            "clarified the concepts of pressure and vacuum"));
   }
 
   @Test
