@@ -34,15 +34,15 @@ public class WebServer {
         QueryProcessor queryProcessor = new QueryProcessor();
         List<Query> possibilities = queryProcessor.process(query);
         if (possibilities.size() == 1) {
+          Query answer = possibilities.get(0);
           if (type.equals("html")) {
-            new HTMLResultPage(query, queryProcessor.process(query)).writeTo(resp);
-          } else if (type.equals("markdown")) {
-            new MarkdownResultPage(query, queryProcessor.process(query)).writeTo(resp);
+            new HTMLResultPage(query, answer).writeTo(resp);
           } else {
-            new PDFResultPage(query, queryProcessor.process(query)).writeTo(resp);
+            new DownloadPage(query, answer, type).writeTo(resp);
           }
         } else {
-          new ChoicePage(possibilities);
+          new ChoicePage(query, possibilities).writeTo(resp);
+          // may not need a choice page class, just put code here
         }
       }
     }

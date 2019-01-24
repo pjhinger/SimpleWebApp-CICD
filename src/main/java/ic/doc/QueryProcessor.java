@@ -1,6 +1,5 @@
 package ic.doc;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class QueryProcessor {
@@ -52,7 +51,7 @@ public class QueryProcessor {
         "https://upload.wikimedia.org/wikipedia/commons/0/0b/Ada_Byron_daguerreotype_by_Antoine_Claudet_1843_or_1850.jpg",
         "https://en.wikipedia.org/wiki/Ada_Lovelace"));
 
-    this.queriesMap.add(new Query(Arrays.asList("william", "pascal", "blaise"),
+    this.queriesMap.add(new Query(Arrays.asList("blaise", "pascal"),
         "Blaise Pascal (19 June 1623 - 19 August 1662) was a French\n" +
             "mathematician, physicist, inventor, writer and Catholic theologian.\n" +
             "He was a child prodigy who was educated by his father, a tax collector\n" +
@@ -67,11 +66,9 @@ public class QueryProcessor {
   }
 
   public List<Query> process(String query) {
-    /*For same surnames, add to a list instead of returning, if list length
-    is more than 1, then generate choice page, else return answer*/
     List<Query> possibilities = new ArrayList<>();
 
-    for(Query q:queriesMap) {
+    for(Query q : queriesMap) {
       List<String> name = q.getQuery();
       boolean found = true;
       StringTokenizer queryTokens = new StringTokenizer(query);
@@ -84,11 +81,11 @@ public class QueryProcessor {
     }
 
     if (possibilities.isEmpty()) {
-      List<Query> noQueryFound = new ArrayList<>()
+      List<Query> noQueryFound = new ArrayList<>();
       noQueryFound.add(new Query(null, "", "", ""));
       return noQueryFound;
     }
+
     return possibilities;
   }
-
 }
