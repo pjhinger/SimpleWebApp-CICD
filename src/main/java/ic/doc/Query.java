@@ -1,25 +1,23 @@
 package ic.doc;
 
-import java.util.List;
-
 public class Query {
-  private String query;
+  private String name;
   private String description;
   private String imgURL;
   private String wikiURL;
 
-  public Query(String query, String description, String imgURL, String wikiURL) {
-    this.query = query;
+  public Query(String name, String description, String imgURL, String wikiURL) {
+    this.name = name;
     this.description = description;
-    if(query != null) {
+    if(name != null) {
       this.description = this.description.concat("\n");
     }
     this.imgURL = imgURL;
     this.wikiURL = wikiURL;
   }
 
-  public String getQuery() {
-    return query;
+  public String getName() {
+    return name;
   }
 
   public String getDescription() {

@@ -23,7 +23,11 @@ public class ChoicePage implements Page {
 
     // Header
     writer.println("<html>");
-    writer.println("<head><title>" + ambiguousQuery + "</title></head>");
+    writer.println("<head>");
+    writer.println("<style>");
+    writer.println(htmlStyle);
+    writer.println("</style>");
+    writer.println("<title>" + ambiguousQuery + "</title></head>");
     writer.println("<body>");
 
     // Content - list of hyperlinked choices
@@ -31,7 +35,7 @@ public class ChoicePage implements Page {
         "<p>" + ambiguousQuery + " gave many results. Select which result you would like to view " +
         "<br><br>");
     while (!possibilities.isEmpty()) {
-      String nameString = possibilities.get(0).getQuery();
+      String nameString = possibilities.get(0).getName();
       String name = String.join(" ", nameString);
       String ref = String.join("+", nameString);
       writer.print("<a href=\"/?q=" + ref + "&type=html\">" + name + "</a>" +

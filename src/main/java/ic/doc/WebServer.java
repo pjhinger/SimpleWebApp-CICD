@@ -38,37 +38,51 @@ public class WebServer {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
       String query = req.getParameter("q");
-      String type = req.getParameter("type");
-      if (query == null || type == null) {
-        new IndexPage().writeTo(resp);
+      String type = req.getParameter("type"); // || type == null
+      if (query == null) {
+        if(type != null) {
+          String[] queryAndType = type.split(",");
+          String[] q = queryAndType[0].split("\\+");
+          renderResultsPage(String.join(" ", q), queryAndType[1], resp);
+        } else {
+          new IndexPage().writeTo(resp);
+        }
+
       } else {
-        ResultSet queryRes = queryProcessor.process(query);
-        List<Query> possibilities = new ArrayList<>();
-        if (queryRes != null) {
-          try {
-            while (queryRes.next()) {
-              String name = queryRes.getString("name");
-              String description = queryRes.getString("description");
-              String imgUrl = queryRes.getString("imgUrl");
-              String wikiUrl = queryRes.getString("wikiUrl");
-              possibilities.add(new Query(name, description, imgUrl, wikiUrl));
-            }
+        renderResultsPage(query, "html", resp);
+      }
+    }
+
+    private void renderResultsPage(String query, String type, HttpServletResponse resp) throws IOException {
+      ResultSet queryRes = queryProcessor.process(query);
+      List<Query> possibilities = new ArrayList<>();
+      if (queryRes != null) {
+        try {
+          while (queryRes.next()) {
+            String name = queryRes.getString("name");
+            String description = queryRes.getString("description");
+            String imgUrl = queryRes.getString("imgUrl");
+            String wikiUrl = queryRes.getString("wikiUrl");
+            possibilities.add(new Query(name, description, imgUrl, wikiUrl));
           }
-          catch (Exception e) {
-            System.out.println("Unknown error occurred");
-          }
-          if (possibilities.size() == 1) {
-            Query answer = possibilities.get(0);
-            if (type.equals("html")) {
-              new HTMLResultPage(query, answer).writeTo(resp);
-            } else {
-              new DownloadPage(query, answer, type).writeTo(resp);
-            }
+        } catch (Exception e) {
+          System.out.println("Unknown error occurred");
+        }
+      }
+      if (possibilities.size() == 1) {
+        Query answer = possibilities.get(0);
+        if(type != null) {
+          if (type.equals("html")) {
+            new HTMLResultPage(query, answer).writeTo(resp);
           } else {
-            new ChoicePage(query, possibilities).writeTo(resp);
-            // may not need a choice page class, just put code here
+            new DownloadPage(query, answer, type).writeTo(resp);
           }
         }
+      } else if (possibilities.size() > 1 ){
+        new ChoicePage(query, possibilities).writeTo(resp);
+      }
+      else {
+        new HTMLResultPage("", null).writeTo(resp);
       }
     }
   }

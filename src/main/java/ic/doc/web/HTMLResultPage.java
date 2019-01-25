@@ -22,7 +22,9 @@ public class HTMLResultPage implements Page {
 
     // Header
     writer.println("<html>");
-    writer.println("<head><title>" + query + "</title></head>");
+    writer.println("<head>"+
+            "<style>"+htmlStyle+"</style>"+
+            "<title>" + query + "</title></head>");
 
     writer.println("<body>");
 
@@ -30,13 +32,29 @@ public class HTMLResultPage implements Page {
     if (answer == null || answer.getDescription() == null || answer.getDescription().isEmpty()) {
       writer.println("<h1>Sorry</h1>");
       writer.print("<p>Sorry, we didn't understand <em>" + query + "</em></p>");
+      writer.println("<p><a href=\"/\">Back to Search Page</a></p>");
     } else {
-      writer.println("<h1>" + query + "</h1>");
-      writer.println("<p>" + answer.getDescription().replace("\n", "<br>") + "</p>");
-      writer.println("<p> <img src=\"" + answer.getImgURL() + "\"> </p>");
+      String name = String.join("+", answer.getName());
+      writer.println("<header>");
+      writer.println("<h1>" + answer.getName() + "</h1>");
+      writer.println("</header>");
+
+      writer.println("<p class=\"information\">" + answer.getDescription().replace("\n", "<br>") + "</p>");
+      writer.println("<img src=\"" + answer.getImgURL() + "\">");
+
+      writer.println("<form>");
+      writer.println("<button type=\"submit\" name=\"type\" value=\""+name+",markdown\"> Markdown </button>");
+      writer.println("<button type=\"submit\" name=\"type\" value=\""+name+",pdf\"> PDF </button>");
+      writer.println("</form>");
+
       writer.println("<p><a href=\""+answer.getWikiURL()+"\" target=\"_blank" +
               "\">Learn More!</a></p>");
+
       writer.println("<p><a href=\"/\">Back to Search Page</a></p>");
+
+      writer.println("<div class=\"credits\">");
+      writer.println("<a href=\"" + answer.getImgURL() + "\"> Image credits: from wikipedia");
+      writer.println("</div>");
     }
 
 
