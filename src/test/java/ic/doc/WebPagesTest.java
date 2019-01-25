@@ -1,3 +1,4 @@
+/*
 package ic.doc;
 
 import ic.doc.web.DownloadPage;
@@ -46,11 +47,9 @@ public class WebPagesTest {
 
     website.doGet(req, resp);
 
-
-
-    // verify(HTMLResultPage, times(1)).writeTo(resp);
+    verify(HTMLResultPage, times(1)).writeTo(resp);
   }
-/*
+
   @Test
   public void markdownPageGenerated() throws IOException {
     when(req.getParameter("q")).thenReturn("shakespeare");
@@ -71,6 +70,7 @@ public class WebPagesTest {
     website.doGet(req, resp);
 
     verify(HTMLResultPage, times(1)).writeTo(resp);
-  }*/
+  }
 
 }
+*/
