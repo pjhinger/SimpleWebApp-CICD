@@ -27,12 +27,12 @@ public class HTMLResultPage implements Page {
     writer.println("<body>");
 
     // Content
-    if (answer == null || answer.getAnswer() == null || answer.getAnswer().isEmpty()) {
+    if (answer == null || answer.getDescription() == null || answer.getDescription().isEmpty()) {
       writer.println("<h1>Sorry</h1>");
       writer.print("<p>Sorry, we didn't understand <em>" + query + "</em></p>");
     } else {
       writer.println("<h1>" + query + "</h1>");
-      writer.println("<p>" + answer.getAnswer().replace("\n", "<br>") + "</p>");
+      writer.println("<p>" + answer.getDescription().replace("\n", "<br>") + "</p>");
       writer.println("<p> <img src=\"" + answer.getImgURL() + "\"> </p>");
       writer.println("<p><a href=\""+answer.getWikiURL()+"\" target=\"_blank" +
               "\">Learn More!</a></p>");

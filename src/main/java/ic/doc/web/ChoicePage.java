@@ -31,9 +31,9 @@ public class ChoicePage implements Page {
         "<p>" + ambiguousQuery + " gave many results. Select which result you would like to view " +
         "<br><br>");
     while (!possibilities.isEmpty()) {
-      List<String> nameStrings = possibilities.get(0).getQuery();
-      String name = String.join(" ", nameStrings);
-      String ref = String.join("+", nameStrings);
+      String nameString = possibilities.get(0).getQuery();
+      String name = String.join(" ", nameString);
+      String ref = String.join("+", nameString);
       writer.print("<a href=\"/?q=" + ref + "&type=html\">" + name + "</a>" +
           "<br><br>");
       possibilities.remove(0);

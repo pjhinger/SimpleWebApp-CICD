@@ -3,27 +3,27 @@ package ic.doc;
 import java.util.List;
 
 public class Query {
-  private List<String> query;
-  private String answer;
+  private String query;
+  private String description;
   private String imgURL;
   private String wikiURL;
 
-  public Query(List<String> query, String answer, String imgURL, String wikiURL) {
+  public Query(String query, String description, String imgURL, String wikiURL) {
     this.query = query;
-    this.answer = answer;
+    this.description = description;
     if(query != null) {
-      this.answer = this.answer.concat("\n");
+      this.description = this.description.concat("\n");
     }
     this.imgURL = imgURL;
     this.wikiURL = wikiURL;
   }
 
-  public List<String> getQuery() {
+  public String getQuery() {
     return query;
   }
 
-  public String getAnswer() {
-    return answer;
+  public String getDescription() {
+    return description;
   }
 
   public String getImgURL() {

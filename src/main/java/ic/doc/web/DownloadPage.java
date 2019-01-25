@@ -26,7 +26,7 @@ public class DownloadPage implements Page{
             resp.setContentType("text/markdown");
         }
 
-        if (answer == null || answer.getAnswer() == null || answer.getAnswer().isEmpty()) {
+        if (answer == null || answer.getDescription() == null || answer.getDescription().isEmpty()) {
             resp.setHeader("Content-Disposition", "attachment;filename=\"sorry." + format + "\"");
             PrintWriter writer = resp.getWriter();
             writer.println("#Sorry");
@@ -50,7 +50,7 @@ public class DownloadPage implements Page{
         tmp.deleteOnExit();
         FileWriter fw = new FileWriter(tmp);
         fw.write("#" + query + "\n");
-        fw.write(answer.getAnswer());
+        fw.write(answer.getDescription());
         fw.write("![alt text]("+answer.getImgURL()+" \"Pic\")");
         fw.write("[Learn More!]("+answer.getWikiURL()+")");
         fw.close();
