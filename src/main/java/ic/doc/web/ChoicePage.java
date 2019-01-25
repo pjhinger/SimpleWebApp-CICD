@@ -23,7 +23,11 @@ public class ChoicePage implements Page {
 
     // Header
     writer.println("<html>");
-    writer.println("<head><title>" + ambiguousQuery + "</title></head>");
+    writer.println("<head>");
+    writer.println("<style>");
+    writer.println(htmlStyle);
+    writer.println("</style>");
+    writer.println("<title>" + ambiguousQuery + "</title></head>");
     writer.println("<body>");
 
     // Content - list of hyperlinked choices

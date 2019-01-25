@@ -12,7 +12,11 @@ public class IndexPage implements Page {
 
     // Header
     writer.println("<html>");
-    writer.println("<head><title>Welcome</title></head>");
+    writer.println("<head>");
+    writer.println("<style>");
+    writer.println(htmlStyle);
+    writer.println("</style>");
+    writer.println("<title>Welcome</title></head>");
     writer.println("<body>");
 
     // Content
@@ -20,12 +24,6 @@ public class IndexPage implements Page {
                    "<p>Enter your query in the box below: " +
                    "<form>" +
                    "<input type=\"text\" name=\"q\" />" +
-                   "<br><br>" +
-                   "<input type=\"radio\" name=\"type\" value=\"html\"> HTML" +
-                   "<br>" +
-                   "<input type=\"radio\" name=\"type\" value=\"markdown\"> Download Markdown File" +
-                   "<br>" +
-                   "<input type=\"radio\" name=\"type\" value=\"pdf\"> PDF" +
                    "<br><br>" +
                    "<input type=\"submit\">" +
                    "</form>" +

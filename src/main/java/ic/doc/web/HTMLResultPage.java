@@ -19,10 +19,13 @@ public class HTMLResultPage implements Page {
   public void writeTo(HttpServletResponse resp) throws IOException {
     resp.setContentType("text/html");
     PrintWriter writer = resp.getWriter();
+    String name = String.join("+", answer.getQuery());
 
     // Header
     writer.println("<html>");
-    writer.println("<head><title>" + query + "</title></head>");
+    writer.println("<head>"+
+            "<style>"+htmlStyle+"</style>"+
+            "<title>" + query + "</title></head>");
 
     writer.println("<body>");
 
@@ -31,12 +34,26 @@ public class HTMLResultPage implements Page {
       writer.println("<h1>Sorry</h1>");
       writer.print("<p>Sorry, we didn't understand <em>" + query + "</em></p>");
     } else {
+      writer.println("<header>");
       writer.println("<h1>" + query + "</h1>");
-      writer.println("<p>" + answer.getAnswer().replace("\n", "<br>") + "</p>");
-      writer.println("<p> <img src=\"" + answer.getImgURL() + "\"> </p>");
+      writer.println("</header>");
+
+      writer.println("<p class=\"information\">" + answer.getAnswer().replace("\n", "<br>") + "</p>");
+      writer.println("<img src=\"" + answer.getImgURL() + "\">");
+
+      writer.println("<form>");
+      writer.println("<button type=\"submit\" name=\"type\" value=\""+name+",markdown\"> Markdown </button>");
+      writer.println("<button type=\"submit\" name=\"type\" value=\""+name+",pdf\"> PDF </button>");
+      writer.println("</form>");
+
       writer.println("<p><a href=\""+answer.getWikiURL()+"\" target=\"_blank" +
               "\">Learn More!</a></p>");
+
       writer.println("<p><a href=\"/\">Back to Search Page</a></p>");
+
+      writer.println("<div class=\"credits\">");
+      writer.println("<a href=\"" + answer.getImgURL() + "\"> Image credits: from wikipedia");
+      writer.println("</div>");
     }
 
 

@@ -3,13 +3,10 @@ package ic.doc;
 import java.util.*;
 
 public class QueryProcessor {
-  /*Add a map mapping query to answer; change if to switch?;*/
 
-  private final Map<List<String>, String> queryMap = new HashMap<>();
   private final List<Query> queriesMap = new ArrayList<>();
 
   public QueryProcessor() {
-    /*this.queryMap*/
     this.queriesMap.add(new Query(Arrays.asList("william", "shakespeare"),
         "William Shakespeare (26 April 1564 - 23 April 1616) was an\n" +
             "English poet, playwright, and actor, widely regarded as the greatest\n" +
@@ -62,6 +59,7 @@ public class QueryProcessor {
             "scientific method.",
         "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Blaise_Pascal_Versailles.JPG/800px-Blaise_Pascal_Versailles.JPG",
         "https://en.wikipedia.org/wiki/Blaise_Pascal"));
+
     this.queriesMap.add(new Query(Arrays.asList("william", "wordsworth"),
             "William Wordsworth (7 April 1770 – 23 April 1850) was a \n "+
                     "major English Romantic poet who, with Samuel Taylor Coleridge, \n " +

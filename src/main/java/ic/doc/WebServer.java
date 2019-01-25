@@ -27,23 +27,37 @@ public class WebServer {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
       String query = req.getParameter("q");
-      String type = req.getParameter("type");
-      if (query == null || type == null) {
-        new IndexPage().writeTo(resp);
+      String type = req.getParameter("type"); // || type == null
+      if (query == null) {
+        if(type != null) {
+          String[] queryAndType = type.split(",");
+          String[] q = queryAndType[0].split("\\+");
+          renderResultsPage(String.join(" ", q), queryAndType[1], resp);
+        } else {
+          new IndexPage().writeTo(resp);
+        }
+
       } else {
-        QueryProcessor queryProcessor = new QueryProcessor();
-        List<Query> possibilities = queryProcessor.process(query);
-        if (possibilities.size() == 1) {
-          Query answer = possibilities.get(0);
+        renderResultsPage(query, "html", resp);
+      }
+    }
+
+    private void renderResultsPage(String query, String type, HttpServletResponse resp) throws IOException {
+      QueryProcessor queryProcessor = new QueryProcessor();
+      List<Query> possibilities = queryProcessor.process(query);
+      if (possibilities.size() == 1) {
+        Query answer = possibilities.get(0);
+        if(type != null) {
           if (type.equals("html")) {
             new HTMLResultPage(query, answer).writeTo(resp);
           } else {
             new DownloadPage(query, answer, type).writeTo(resp);
           }
-        } else {
-          new ChoicePage(query, possibilities).writeTo(resp);
-          // may not need a choice page class, just put code here
         }
+
+      } else {
+        new ChoicePage(query, possibilities).writeTo(resp);
+        // may not need a choice page class, just put code here
       }
     }
   }
