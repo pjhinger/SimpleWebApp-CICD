@@ -42,7 +42,6 @@ public class WebServer {
           }
         } else {
           new ChoicePage(query, possibilities).writeTo(resp);
-          // may not need a choice page class, just put code here
         }
       }
     }

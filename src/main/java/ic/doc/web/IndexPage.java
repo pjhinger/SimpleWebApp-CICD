@@ -12,7 +12,10 @@ public class IndexPage implements Page {
 
     // Header
     writer.println("<html>");
-    writer.println("<head><title>Welcome</title></head>");
+    writer.println("<head>" +
+        "<title>Welcome</title>" +
+        "<link rel=\"stylesheet\" type=\"text/css\" href=\"/css/\">" +
+        "</head>");
     writer.println("<body>");
 
     // Content
