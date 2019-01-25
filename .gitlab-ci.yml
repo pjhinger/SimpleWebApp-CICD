@@ -17,4 +17,4 @@ deploy:
   stage: deploy
   script:
     - mvn package
-    - dpl --provider=heroku --app=clc4217-simplewebapp --api-key=f469d3bc-ca9c-4cb0-bf44-b7dabdd23168
+    - dpl --provider=heroku --app=clc4217-simplewebapp
