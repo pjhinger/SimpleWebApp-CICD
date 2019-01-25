@@ -6,7 +6,7 @@ public class Query {
   private String imgURL;
   private String wikiURL;
 
-  public Query(String name, String description, String imgURL, String wikiURL) {
+  Query(String name, String description, String imgURL, String wikiURL) {
     this.name = name;
     this.description = description;
     if(name != null) {

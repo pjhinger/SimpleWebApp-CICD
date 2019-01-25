@@ -7,14 +7,14 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class QueryProcessorTest {
-//
+
 //  QueryProcessor queryProcessor = new QueryProcessor();
-//
+
 //  @Test
 //  public void returnsEmptyStringIfCannotProcessQuery() throws Exception {
-//    assertThat(queryProcessor.process("test").get(0).getAnswer(), is(""));
+//    assertThat(queryProcessor.process("test").next(), is((Class<Boolean>) null));
 //  }
-//
+
 //  @Test
 //  public void knowsAboutShakespeare() throws Exception {
 //    assertThat(queryProcessor.process("Shakespeare").get(0).getAnswer(), containsString(

@@ -45,7 +45,7 @@ public class DownloadPage implements Page{
         }
     }
 
-    public File createFile() throws IOException{
+    private File createFile() throws IOException{
         File tmp = File.createTempFile(query, ".md");
         tmp.deleteOnExit();
         FileWriter fw = new FileWriter(tmp);

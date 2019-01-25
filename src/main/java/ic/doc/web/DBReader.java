@@ -5,13 +5,12 @@ import java.sql.*;
 
 public class DBReader {
 
-    Connection wiki;
-    Statement state;
+    private Statement state;
 
     public DBReader(){
         try {
             Class.forName("org.sqlite.JDBC");
-            wiki = DriverManager.getConnection("jdbc:sqlite:wiki.db");
+            Connection wiki = DriverManager.getConnection("jdbc:sqlite:wiki.db");
             state = wiki.createStatement();
         } catch (Exception e) {
             System.out.println("Failed to open database/statement");

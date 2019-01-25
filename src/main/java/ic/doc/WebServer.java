@@ -15,7 +15,7 @@ import java.util.List;
 
 public class WebServer {
 
-  public WebServer() throws Exception {
+  private WebServer() throws Exception {
     Server server = new Server(Integer.valueOf(System.getenv("PORT")));
 
     ServletHandler handler = new ServletHandler();
@@ -30,7 +30,7 @@ public class WebServer {
     final DBReader dbReader;
     final QueryProcessor queryProcessor;
 
-    public Website(){
+    Website(){
       dbReader = new DBReader();
       queryProcessor = new QueryProcessor(dbReader);
     }
