@@ -23,6 +23,7 @@ public class HTMLResultPage implements Page {
     // Header
     writer.println("<html>");
     writer.println("<head><title>" + query + "</title></head>");
+
     writer.println("<body>");
 
     // Content
@@ -32,12 +33,13 @@ public class HTMLResultPage implements Page {
     } else {
       writer.println("<h1>" + query + "</h1>");
       writer.println("<p>" + answer.getAnswer().replace("\n", "<br>") + "</p>");
+      writer.println("<p> <img src=\"" + answer.getImgURL() + "\"> </p>");
+      writer.println("<p><a href=\""+answer.getWikiURL()+"\" target=\"_blank" +
+              "\">Learn More!</a></p>");
+      writer.println("<p><a href=\"/\">Back to Search Page</a></p>");
     }
 
-    writer.println("<p> <img src=\"" + answer.getImgURL() + "\"> </p>");
-    writer.println("<p><a href=\""+answer.getWikiURL()+"\" target=\"_blank" +
-            "\">Learn More!</a></p>");
-    writer.println("<p><a href=\"/\">Back to Search Page</a></p>");
+
 
     // Footer
     writer.println("</body>");

@@ -62,6 +62,21 @@ public class QueryProcessor {
             "scientific method.",
         "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Blaise_Pascal_Versailles.JPG/800px-Blaise_Pascal_Versailles.JPG",
         "https://en.wikipedia.org/wiki/Blaise_Pascal"));
+    this.queriesMap.add(new Query(Arrays.asList("william", "wordsworth"),
+            "William Wordsworth (7 April 1770 – 23 April 1850) was a \n "+
+                    "major English Romantic poet who, with Samuel Taylor Coleridge, \n " +
+                    "helped to launch the Romantic Age in English literature with \n "+
+                    "their joint publication Lyrical Ballads (1798). \n" +
+                    "Wordsworth's magnum opus is generally considered to be \n " +
+                    "The Prelude, a semi-autobiographical poem of his early years \n"+
+                    " that he revised and expanded a number of times. \n" +
+                    " It was posthumously titled and published, before which \n"+
+                    "it was generally known as \"the poem to Coleridge\". \n"+
+                    "Wordsworth was Britain's poet laureate from 1843 \n"+
+                    "until his death from pleurisy on 23 April 1850.",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Wordsworth_on_Helvellyn_by_Benjamin_Robert_Haydon.jpg/800px-Wordsworth_on_Helvellyn_by_Benjamin_Robert_Haydon.jpg",
+            "https://en.wikipedia.org/wiki/William_Wordsworth"));
+
 
   }
 
